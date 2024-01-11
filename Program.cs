@@ -65,6 +65,7 @@ while (choice != "0")
     Console.WriteLine("\n\t3. Adopt a Plant");
     Console.WriteLine("\n\t4. Delist a Plant");
     Console.WriteLine("\n\t5. Plant of the Day");
+    Console.WriteLine("\n\t6. Search by Light Needs");
     Console.Write("\n\n\t\tPlease choose an option:  ");
     choice = Console.ReadLine();
 
@@ -93,6 +94,10 @@ while (choice != "0")
 
         case "5":
             RandomPlant();
+            break;
+
+        case "6":
+            SearchByLight();
             break;
 
     }
@@ -218,5 +223,28 @@ void DelistPlant()
     {
         Console.WriteLine($"\n\t{plantChoice} is not a valid selection, please try again.");
         DelistPlant();
+    }
+}
+
+void SearchByLight()
+{
+    Console.Write("\n\tEnter desired maximum light value (1-5): ");
+
+    int lightChoice = Convert.ToInt32(Console.ReadLine());
+
+    if (lightChoice >= 1 && lightChoice <= 5)
+    {
+        foreach (Plant plant in plants)
+        {
+            if (plant.LightNeeds == lightChoice)
+            {
+                Console.WriteLine($"\n\t{plant.Species}   Price: {plant.AskingPrice}   Location: {plant.City} {plant.ZIP}   Light Needs: {plant.LightNeeds}   {(plant.Sold ? "Isn't" : "Is")} Available");
+            }
+        }
+    }
+    else
+    {
+        Console.WriteLine("Invalid input, please try again");
+        SearchByLight();
     }
 }
