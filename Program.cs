@@ -63,8 +63,9 @@ while (choice != "0")
     Console.WriteLine("\n\t1. Display All Plants");
     Console.WriteLine("\n\t2. Post a Plant for Adoption");
     Console.WriteLine("\n\t3. Adopt a Plant");
-    Console.WriteLine("\n\t4. Delist a Plant\n\n");
-    Console.Write("\t\tPlease choose an option:  ");
+    Console.WriteLine("\n\t4. Delist a Plant");
+    Console.WriteLine("\n\t5. Plant of the Day");
+    Console.Write("\n\n\t\tPlease choose an option:  ");
     choice = Console.ReadLine();
 
     switch (choice)
@@ -90,7 +91,20 @@ while (choice != "0")
             DelistPlant();
             break;
 
+        case "5":
+            RandomPlant();
+            break;
+
     }
+}
+
+void RandomPlant()
+{
+    List<Plant> availablePlants = plants.Where(p => !p.Sold).ToList();
+    Random random = new();
+    int randomPlantIndex = random.Next(1, availablePlants.Count());
+    Plant randomPlant = availablePlants[randomPlantIndex];
+    Console.WriteLine($"\n\t{randomPlant.Species}   Price: ${randomPlant.AskingPrice}   Location: {randomPlant.City} {randomPlant.ZIP}   Light Needs: {randomPlant.LightNeeds}");
 }
 
 void ListPlants()
@@ -151,7 +165,7 @@ void AdoptPlant()
     {
         Console.WriteLine($"\n\t{index++}. {plant.Species}   Price: ${plant.AskingPrice}   Location: {plant.City}");
     }
-    
+
     Console.Write("\n\tPlease select the number of the plant you wish to adopt:  ");
     plantChoice = Console.ReadLine();
 
